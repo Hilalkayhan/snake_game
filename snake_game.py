@@ -48,6 +48,46 @@ def show_text(text, size, color, x, y):
     text_surface = font.render(text, True, color)
     screen.blit(text_surface, (x, y))
 
+# Huvudmeny
+def main_menu():
+    while True:
+        screen.fill((0, 0, 0))
+        show_text("Snake Game", 50, (0, 255, 0), WIDTH // 4, HEIGHT // 4)
+        show_text("1. Start Game", 30, (255, 255, 255), WIDTH // 4, HEIGHT // 2)
+        show_text("2. View Highscore", 30, (255, 255, 255), WIDTH // 4, HEIGHT // 2 + 40)
+        show_text("3. Exit", 30, (255, 255, 255), WIDTH // 4, HEIGHT // 2 + 80)
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:  # Start Game
+                    main()
+                if event.key == pygame.K_2:  # View Highscore
+                    show_highscore()
+                if event.key == pygame.K_3:  # Exit
+                    pygame.quit()
+                    sys.exit()
+
+# Visa Highscore
+def show_highscore():
+    while True:
+        screen.fill((0, 0, 0))
+        show_text("Highscore", 50, (255, 255, 0), WIDTH // 3, HEIGHT // 4)
+        show_text(f"Highscore: {highscore}", 30, (255, 255, 255), WIDTH // 3, HEIGHT // 2)
+        show_text("Press B to go back", 20, (255, 255, 255), WIDTH // 3, HEIGHT // 1.5)
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_b:  # Back to Main Menu
+                    return
+
 # Game Over-funktion
 def game_over():
     global highscore
@@ -161,4 +201,4 @@ def main():
 
 # Starta spelet
 if __name__ == "__main__":
-    main()
+    main_menu()
